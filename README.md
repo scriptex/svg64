@@ -63,13 +63,13 @@ demo.style.backgroundImage = `url(${base64fromSVG})`;
 
 ```javascript
 // Require svg64
-const SVG64 = require('../src/svg64').default;
+const SVG64 = require('svg64').default;
 
 // Import `readFileSync` from the file system module
 const { readFileSync } = require('fs');
 
 // Read your SVG file's contents
-const svg = readFileSync('./demo/loader.svg', 'utf-8');
+const svg = readFileSync('./file.svg', 'utf-8');
 
 // This is your SVG in base64 representation
 const base64fromSVG = SVG64(svg);
