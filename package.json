@@ -1,0 +1,35 @@
+{
+  "name": "svg64",
+  "version": "0.1.0",
+  "description": "Convert SVG to base64 anywhere",
+  "keywords": [
+    "SVG",
+    "Convert",
+    "base64"
+  ],
+  "main": "dist/svg64.js",
+  "scripts": {
+    "build": "webpack",
+    "demo": "node ./demo/node.js"
+  },
+  "repository": "git@github.com:scriptex/svg64.git",
+  "bugs": {
+    "url": "https://github.com/scriptex/svg64/issues",
+    "email": "scriptex.bg@gmail.com"
+  },
+  "author": "Atanas Atanasov <scriptex.bg@gmail.com> (https://atanas.info)",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.51",
+    "@babel/core": "^7.0.0-beta.51",
+    "@babel/preset-env": "^7.0.0-beta.51",
+    "@babel/preset-stage-2": "^7.0.0-beta.51",
+    "babel-loader": "^8.0.0-beta",
+    "unminified-webpack-plugin": "^2.0.0",
+    "webpack": "^4.12.0",
+    "webpack-cli": "^3.0.8"
+  },
+  "dependencies": {
+    "btoa": "^1.2.1"
+  }
+}
