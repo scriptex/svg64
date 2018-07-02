@@ -2234,9 +2234,23 @@ function isnan(val) {
 "use strict";
 
 
-var PREFIX = 'data:image/svg+xml;base64,';
-
+/**
+ * External dependencies
+ */
 var btoa = __webpack_require__(5);
+/**
+ * base64 prefix
+ */
+
+
+var PREFIX = 'data:image/svg+xml;base64,';
+/**
+ * Detect the type of the provided SVG
+ *
+ * @param  {String|SVGElement} input
+ *
+ * @return {String}
+ */
 
 var detectInputType = function detectInputType(input) {
   if (typeof input === 'string') {
@@ -2246,21 +2260,41 @@ var detectInputType = function detectInputType(input) {
   if (typeof SVGElement !== 'undefined' && input instanceof SVGElement) {
     return 'element';
   }
-
-  if (typeof input.name === 'string') {
-    return 'file';
-  }
 };
+/**
+ * Convert SVGElement to base64
+ *
+ * @param  {SVGElement} element
+ *
+ * @return {String}
+ */
+
 
 var convertElement = function convertElement(element) {
   var XMLS = new XMLSerializer();
   var svg = XMLS.serializeToString(element);
   return getBase64(svg);
 };
+/**
+ * Get the base64 representation of an SVG string or element
+ *
+ * @param  {Strong} svg - Serialized SVG element or SVG string
+ *
+ * @return {String}
+ */
+
 
 var getBase64 = function getBase64(svg) {
   return "".concat(PREFIX).concat(btoa(svg));
 };
+/**
+ * Actually convert the provided SVG
+ *
+ * @param  {String|SVGElement} svg
+ *
+ * @return {String}
+ */
+
 
 var SVG64 = function SVG64(svg) {
   var type = detectInputType(svg);
