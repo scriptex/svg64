@@ -1,12 +1,8 @@
 {
   "name": "svg64",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "Convert SVG to base64 anywhere",
-  "keywords": [
-    "SVG",
-    "Convert",
-    "base64"
-  ],
+  "keywords": ["SVG", "Convert", "base64"],
   "main": "dist/svg64.js",
   "scripts": {
     "build": "webpack",
