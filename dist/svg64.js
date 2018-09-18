@@ -91,261 +91,128 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-var toString = {}.toString;
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (global, factory) {
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+  } else { var mod; }
+})(this, function () {
+  "use strict";
 
-module.exports = Array.isArray || function (arr) {
-  return toString.call(arr) == '[object Array]';
-};
+  /**
+   * External dependencies
+   */
+  var btoa = __webpack_require__(1);
+  /**
+   * base64 prefix
+   */
+
+
+  var PREFIX = 'data:image/svg+xml;base64,';
+  /**
+   * Detect the type of the provided SVG
+   *
+   * @param  {String|SVGElement} input
+   *
+   * @return {String}
+   */
+
+  var detectInputType = function detectInputType(input) {
+    if (typeof input === 'string') {
+      return 'string';
+    }
+
+    if (typeof SVGElement !== 'undefined' && input instanceof SVGElement) {
+      return 'element';
+    }
+  };
+  /**
+   * Convert SVGElement to base64
+   *
+   * @param  {SVGElement} element
+   *
+   * @return {String}
+   */
+
+
+  var convertElement = function convertElement(element) {
+    var XMLS = new XMLSerializer();
+    var svg = XMLS.serializeToString(element);
+    return getBase64(svg);
+  };
+  /**
+   * Get the base64 representation of an SVG string or element
+   *
+   * @param  {Strong} svg - Serialized SVG element or SVG string
+   *
+   * @return {String}
+   */
+
+
+  var getBase64 = function getBase64(svg) {
+    return "".concat(PREFIX).concat(btoa(svg));
+  };
+  /**
+   * Actually convert the provided SVG
+   *
+   * @param  {String|SVGElement} svg
+   *
+   * @return {String}
+   */
+
+
+  var SVG64 = function SVG64(svg) {
+    var type = detectInputType(svg);
+
+    switch (type) {
+      case 'string':
+        return getBase64(svg);
+
+      case 'element':
+        return convertElement(svg);
+
+      default:
+        return svg;
+    }
+  };
+
+  exports.default = SVG64;
+});
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-exports.read = function (buffer, offset, isLE, mLen, nBytes) {
-  var e, m;
-  var eLen = nBytes * 8 - mLen - 1;
-  var eMax = (1 << eLen) - 1;
-  var eBias = eMax >> 1;
-  var nBits = -7;
-  var i = isLE ? nBytes - 1 : 0;
-  var d = isLE ? -1 : 1;
-  var s = buffer[offset + i];
-  i += d;
-  e = s & (1 << -nBits) - 1;
-  s >>= -nBits;
-  nBits += eLen;
+/* WEBPACK VAR INJECTION */(function(Buffer) {(function () {
+  "use strict";
 
-  for (; nBits > 0; e = e * 256 + buffer[offset + i], i += d, nBits -= 8) {}
+  function btoa(str) {
+    var buffer;
 
-  m = e & (1 << -nBits) - 1;
-  e >>= -nBits;
-  nBits += mLen;
+    if (str instanceof Buffer) {
+      buffer = str;
+    } else {
+      buffer = Buffer.from(str.toString(), 'binary');
+    }
 
-  for (; nBits > 0; m = m * 256 + buffer[offset + i], i += d, nBits -= 8) {}
-
-  if (e === 0) {
-    e = 1 - eBias;
-  } else if (e === eMax) {
-    return m ? NaN : (s ? -1 : 1) * Infinity;
-  } else {
-    m = m + Math.pow(2, mLen);
-    e = e - eBias;
+    return buffer.toString('base64');
   }
 
-  return (s ? -1 : 1) * m * Math.pow(2, e - mLen);
-};
-
-exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
-  var e, m, c;
-  var eLen = nBytes * 8 - mLen - 1;
-  var eMax = (1 << eLen) - 1;
-  var eBias = eMax >> 1;
-  var rt = mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0;
-  var i = isLE ? 0 : nBytes - 1;
-  var d = isLE ? 1 : -1;
-  var s = value < 0 || value === 0 && 1 / value < 0 ? 1 : 0;
-  value = Math.abs(value);
-
-  if (isNaN(value) || value === Infinity) {
-    m = isNaN(value) ? 1 : 0;
-    e = eMax;
-  } else {
-    e = Math.floor(Math.log(value) / Math.LN2);
-
-    if (value * (c = Math.pow(2, -e)) < 1) {
-      e--;
-      c *= 2;
-    }
-
-    if (e + eBias >= 1) {
-      value += rt / c;
-    } else {
-      value += rt * Math.pow(2, 1 - eBias);
-    }
-
-    if (value * c >= 2) {
-      e++;
-      c /= 2;
-    }
-
-    if (e + eBias >= eMax) {
-      m = 0;
-      e = eMax;
-    } else if (e + eBias >= 1) {
-      m = (value * c - 1) * Math.pow(2, mLen);
-      e = e + eBias;
-    } else {
-      m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen);
-      e = 0;
-    }
-  }
-
-  for (; mLen >= 8; buffer[offset + i] = m & 0xff, i += d, m /= 256, mLen -= 8) {}
-
-  e = e << mLen | m;
-  eLen += mLen;
-
-  for (; eLen > 0; buffer[offset + i] = e & 0xff, i += d, e /= 256, eLen -= 8) {}
-
-  buffer[offset + i - d] |= s * 128;
-};
+  module.exports = btoa;
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2).Buffer))
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.byteLength = byteLength;
-exports.toByteArray = toByteArray;
-exports.fromByteArray = fromByteArray;
-var lookup = [];
-var revLookup = [];
-var Arr = typeof Uint8Array !== 'undefined' ? Uint8Array : Array;
-var code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
-
-for (var i = 0, len = code.length; i < len; ++i) {
-  lookup[i] = code[i];
-  revLookup[code.charCodeAt(i)] = i;
-} // Support decoding URL-safe base64 strings, as Node.js does.
-// See: https://en.wikipedia.org/wiki/Base64#URL_applications
-
-
-revLookup['-'.charCodeAt(0)] = 62;
-revLookup['_'.charCodeAt(0)] = 63;
-
-function getLens(b64) {
-  var len = b64.length;
-
-  if (len % 4 > 0) {
-    throw new Error('Invalid string. Length must be a multiple of 4');
-  } // Trim off extra bytes after placeholder bytes are found
-  // See: https://github.com/beatgammit/base64-js/issues/42
-
-
-  var validLen = b64.indexOf('=');
-  if (validLen === -1) validLen = len;
-  var placeHoldersLen = validLen === len ? 0 : 4 - validLen % 4;
-  return [validLen, placeHoldersLen];
-} // base64 is 4/3 + up to two characters of the original data
-
-
-function byteLength(b64) {
-  var lens = getLens(b64);
-  var validLen = lens[0];
-  var placeHoldersLen = lens[1];
-  return (validLen + placeHoldersLen) * 3 / 4 - placeHoldersLen;
-}
-
-function _byteLength(b64, validLen, placeHoldersLen) {
-  return (validLen + placeHoldersLen) * 3 / 4 - placeHoldersLen;
-}
-
-function toByteArray(b64) {
-  var tmp;
-  var lens = getLens(b64);
-  var validLen = lens[0];
-  var placeHoldersLen = lens[1];
-  var arr = new Arr(_byteLength(b64, validLen, placeHoldersLen));
-  var curByte = 0; // if there are placeholders, only get up to the last complete 4 chars
-
-  var len = placeHoldersLen > 0 ? validLen - 4 : validLen;
-
-  for (var i = 0; i < len; i += 4) {
-    tmp = revLookup[b64.charCodeAt(i)] << 18 | revLookup[b64.charCodeAt(i + 1)] << 12 | revLookup[b64.charCodeAt(i + 2)] << 6 | revLookup[b64.charCodeAt(i + 3)];
-    arr[curByte++] = tmp >> 16 & 0xFF;
-    arr[curByte++] = tmp >> 8 & 0xFF;
-    arr[curByte++] = tmp & 0xFF;
-  }
-
-  if (placeHoldersLen === 2) {
-    tmp = revLookup[b64.charCodeAt(i)] << 2 | revLookup[b64.charCodeAt(i + 1)] >> 4;
-    arr[curByte++] = tmp & 0xFF;
-  }
-
-  if (placeHoldersLen === 1) {
-    tmp = revLookup[b64.charCodeAt(i)] << 10 | revLookup[b64.charCodeAt(i + 1)] << 4 | revLookup[b64.charCodeAt(i + 2)] >> 2;
-    arr[curByte++] = tmp >> 8 & 0xFF;
-    arr[curByte++] = tmp & 0xFF;
-  }
-
-  return arr;
-}
-
-function tripletToBase64(num) {
-  return lookup[num >> 18 & 0x3F] + lookup[num >> 12 & 0x3F] + lookup[num >> 6 & 0x3F] + lookup[num & 0x3F];
-}
-
-function encodeChunk(uint8, start, end) {
-  var tmp;
-  var output = [];
-
-  for (var i = start; i < end; i += 3) {
-    tmp = (uint8[i] << 16 & 0xFF0000) + (uint8[i + 1] << 8 & 0xFF00) + (uint8[i + 2] & 0xFF);
-    output.push(tripletToBase64(tmp));
-  }
-
-  return output.join('');
-}
-
-function fromByteArray(uint8) {
-  var tmp;
-  var len = uint8.length;
-  var extraBytes = len % 3; // if we have 1 byte left, pad 2 bytes
-
-  var parts = [];
-  var maxChunkLength = 16383; // must be multiple of 3
-  // go through the array every three bytes, we'll deal with trailing stuff later
-
-  for (var i = 0, len2 = len - extraBytes; i < len2; i += maxChunkLength) {
-    parts.push(encodeChunk(uint8, i, i + maxChunkLength > len2 ? len2 : i + maxChunkLength));
-  } // pad the end with zeros, but make sure to not forget the extra bytes
-
-
-  if (extraBytes === 1) {
-    tmp = uint8[len - 1];
-    parts.push(lookup[tmp >> 2] + lookup[tmp << 4 & 0x3F] + '==');
-  } else if (extraBytes === 2) {
-    tmp = (uint8[len - 2] << 8) + uint8[len - 1];
-    parts.push(lookup[tmp >> 10] + lookup[tmp >> 4 & 0x3F] + lookup[tmp << 2 & 0x3F] + '=');
-  }
-
-  return parts.join('');
-}
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
-var g; // This works in non-strict mode
-
-g = function () {
-  return this;
-}();
-
-try {
-  // This works if eval is allowed (see CSP)
-  g = g || Function("return this")() || (1, eval)("this");
-} catch (e) {
-  // This works if the window reference is available
-  if (typeof window === "object") g = window;
-} // g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-
-module.exports = g;
-
-/***/ }),
-/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -359,11 +226,11 @@ module.exports = g;
 /* eslint-disable no-proto */
 
 
-var base64 = __webpack_require__(2);
+var base64 = __webpack_require__(4);
 
-var ieee754 = __webpack_require__(1);
+var ieee754 = __webpack_require__(5);
 
-var isArray = __webpack_require__(0);
+var isArray = __webpack_require__(6);
 
 exports.Buffer = Buffer;
 exports.SlowBuffer = SlowBuffer;
@@ -2205,113 +2072,254 @@ function isnan(val) {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3)))
 
 /***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 3 */
+/***/ (function(module, exports) {
 
-/* WEBPACK VAR INJECTION */(function(Buffer) {(function () {
-  "use strict";
+var g; // This works in non-strict mode
 
-  function btoa(str) {
-    var buffer;
+g = function () {
+  return this;
+}();
 
-    if (str instanceof Buffer) {
-      buffer = str;
-    } else {
-      buffer = Buffer.from(str.toString(), 'binary');
-    }
+try {
+  // This works if eval is allowed (see CSP)
+  g = g || Function("return this")() || (1, eval)("this");
+} catch (e) {
+  // This works if the window reference is available
+  if (typeof window === "object") g = window;
+} // g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
 
-    return buffer.toString('base64');
-  }
 
-  module.exports = btoa;
-})();
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4).Buffer))
+module.exports = g;
 
 /***/ }),
-/* 6 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-/**
- * External dependencies
- */
-var btoa = __webpack_require__(5);
-/**
- * base64 prefix
- */
+exports.byteLength = byteLength;
+exports.toByteArray = toByteArray;
+exports.fromByteArray = fromByteArray;
+var lookup = [];
+var revLookup = [];
+var Arr = typeof Uint8Array !== 'undefined' ? Uint8Array : Array;
+var code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+
+for (var i = 0, len = code.length; i < len; ++i) {
+  lookup[i] = code[i];
+  revLookup[code.charCodeAt(i)] = i;
+} // Support decoding URL-safe base64 strings, as Node.js does.
+// See: https://en.wikipedia.org/wiki/Base64#URL_applications
 
 
-var PREFIX = 'data:image/svg+xml;base64,';
-/**
- * Detect the type of the provided SVG
- *
- * @param  {String|SVGElement} input
- *
- * @return {String}
- */
+revLookup['-'.charCodeAt(0)] = 62;
+revLookup['_'.charCodeAt(0)] = 63;
 
-var detectInputType = function detectInputType(input) {
-  if (typeof input === 'string') {
-    return 'string';
+function getLens(b64) {
+  var len = b64.length;
+
+  if (len % 4 > 0) {
+    throw new Error('Invalid string. Length must be a multiple of 4');
+  } // Trim off extra bytes after placeholder bytes are found
+  // See: https://github.com/beatgammit/base64-js/issues/42
+
+
+  var validLen = b64.indexOf('=');
+  if (validLen === -1) validLen = len;
+  var placeHoldersLen = validLen === len ? 0 : 4 - validLen % 4;
+  return [validLen, placeHoldersLen];
+} // base64 is 4/3 + up to two characters of the original data
+
+
+function byteLength(b64) {
+  var lens = getLens(b64);
+  var validLen = lens[0];
+  var placeHoldersLen = lens[1];
+  return (validLen + placeHoldersLen) * 3 / 4 - placeHoldersLen;
+}
+
+function _byteLength(b64, validLen, placeHoldersLen) {
+  return (validLen + placeHoldersLen) * 3 / 4 - placeHoldersLen;
+}
+
+function toByteArray(b64) {
+  var tmp;
+  var lens = getLens(b64);
+  var validLen = lens[0];
+  var placeHoldersLen = lens[1];
+  var arr = new Arr(_byteLength(b64, validLen, placeHoldersLen));
+  var curByte = 0; // if there are placeholders, only get up to the last complete 4 chars
+
+  var len = placeHoldersLen > 0 ? validLen - 4 : validLen;
+
+  for (var i = 0; i < len; i += 4) {
+    tmp = revLookup[b64.charCodeAt(i)] << 18 | revLookup[b64.charCodeAt(i + 1)] << 12 | revLookup[b64.charCodeAt(i + 2)] << 6 | revLookup[b64.charCodeAt(i + 3)];
+    arr[curByte++] = tmp >> 16 & 0xFF;
+    arr[curByte++] = tmp >> 8 & 0xFF;
+    arr[curByte++] = tmp & 0xFF;
   }
 
-  if (typeof SVGElement !== 'undefined' && input instanceof SVGElement) {
-    return 'element';
+  if (placeHoldersLen === 2) {
+    tmp = revLookup[b64.charCodeAt(i)] << 2 | revLookup[b64.charCodeAt(i + 1)] >> 4;
+    arr[curByte++] = tmp & 0xFF;
   }
-};
-/**
- * Convert SVGElement to base64
- *
- * @param  {SVGElement} element
- *
- * @return {String}
- */
 
-
-var convertElement = function convertElement(element) {
-  var XMLS = new XMLSerializer();
-  var svg = XMLS.serializeToString(element);
-  return getBase64(svg);
-};
-/**
- * Get the base64 representation of an SVG string or element
- *
- * @param  {Strong} svg - Serialized SVG element or SVG string
- *
- * @return {String}
- */
-
-
-var getBase64 = function getBase64(svg) {
-  return "".concat(PREFIX).concat(btoa(svg));
-};
-/**
- * Actually convert the provided SVG
- *
- * @param  {String|SVGElement} svg
- *
- * @return {String}
- */
-
-
-var SVG64 = function SVG64(svg) {
-  var type = detectInputType(svg);
-
-  switch (type) {
-    case 'string':
-      return getBase64(svg);
-
-    case 'element':
-      return convertElement(svg);
-
-    default:
-      return svg;
+  if (placeHoldersLen === 1) {
+    tmp = revLookup[b64.charCodeAt(i)] << 10 | revLookup[b64.charCodeAt(i + 1)] << 4 | revLookup[b64.charCodeAt(i + 2)] >> 2;
+    arr[curByte++] = tmp >> 8 & 0xFF;
+    arr[curByte++] = tmp & 0xFF;
   }
+
+  return arr;
+}
+
+function tripletToBase64(num) {
+  return lookup[num >> 18 & 0x3F] + lookup[num >> 12 & 0x3F] + lookup[num >> 6 & 0x3F] + lookup[num & 0x3F];
+}
+
+function encodeChunk(uint8, start, end) {
+  var tmp;
+  var output = [];
+
+  for (var i = start; i < end; i += 3) {
+    tmp = (uint8[i] << 16 & 0xFF0000) + (uint8[i + 1] << 8 & 0xFF00) + (uint8[i + 2] & 0xFF);
+    output.push(tripletToBase64(tmp));
+  }
+
+  return output.join('');
+}
+
+function fromByteArray(uint8) {
+  var tmp;
+  var len = uint8.length;
+  var extraBytes = len % 3; // if we have 1 byte left, pad 2 bytes
+
+  var parts = [];
+  var maxChunkLength = 16383; // must be multiple of 3
+  // go through the array every three bytes, we'll deal with trailing stuff later
+
+  for (var i = 0, len2 = len - extraBytes; i < len2; i += maxChunkLength) {
+    parts.push(encodeChunk(uint8, i, i + maxChunkLength > len2 ? len2 : i + maxChunkLength));
+  } // pad the end with zeros, but make sure to not forget the extra bytes
+
+
+  if (extraBytes === 1) {
+    tmp = uint8[len - 1];
+    parts.push(lookup[tmp >> 2] + lookup[tmp << 4 & 0x3F] + '==');
+  } else if (extraBytes === 2) {
+    tmp = (uint8[len - 2] << 8) + uint8[len - 1];
+    parts.push(lookup[tmp >> 10] + lookup[tmp >> 4 & 0x3F] + lookup[tmp << 2 & 0x3F] + '=');
+  }
+
+  return parts.join('');
+}
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+exports.read = function (buffer, offset, isLE, mLen, nBytes) {
+  var e, m;
+  var eLen = nBytes * 8 - mLen - 1;
+  var eMax = (1 << eLen) - 1;
+  var eBias = eMax >> 1;
+  var nBits = -7;
+  var i = isLE ? nBytes - 1 : 0;
+  var d = isLE ? -1 : 1;
+  var s = buffer[offset + i];
+  i += d;
+  e = s & (1 << -nBits) - 1;
+  s >>= -nBits;
+  nBits += eLen;
+
+  for (; nBits > 0; e = e * 256 + buffer[offset + i], i += d, nBits -= 8) {}
+
+  m = e & (1 << -nBits) - 1;
+  e >>= -nBits;
+  nBits += mLen;
+
+  for (; nBits > 0; m = m * 256 + buffer[offset + i], i += d, nBits -= 8) {}
+
+  if (e === 0) {
+    e = 1 - eBias;
+  } else if (e === eMax) {
+    return m ? NaN : (s ? -1 : 1) * Infinity;
+  } else {
+    m = m + Math.pow(2, mLen);
+    e = e - eBias;
+  }
+
+  return (s ? -1 : 1) * m * Math.pow(2, e - mLen);
 };
 
-exports.default = SVG64;
+exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
+  var e, m, c;
+  var eLen = nBytes * 8 - mLen - 1;
+  var eMax = (1 << eLen) - 1;
+  var eBias = eMax >> 1;
+  var rt = mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0;
+  var i = isLE ? 0 : nBytes - 1;
+  var d = isLE ? 1 : -1;
+  var s = value < 0 || value === 0 && 1 / value < 0 ? 1 : 0;
+  value = Math.abs(value);
+
+  if (isNaN(value) || value === Infinity) {
+    m = isNaN(value) ? 1 : 0;
+    e = eMax;
+  } else {
+    e = Math.floor(Math.log(value) / Math.LN2);
+
+    if (value * (c = Math.pow(2, -e)) < 1) {
+      e--;
+      c *= 2;
+    }
+
+    if (e + eBias >= 1) {
+      value += rt / c;
+    } else {
+      value += rt * Math.pow(2, 1 - eBias);
+    }
+
+    if (value * c >= 2) {
+      e++;
+      c /= 2;
+    }
+
+    if (e + eBias >= eMax) {
+      m = 0;
+      e = eMax;
+    } else if (e + eBias >= 1) {
+      m = (value * c - 1) * Math.pow(2, mLen);
+      e = e + eBias;
+    } else {
+      m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen);
+      e = 0;
+    }
+  }
+
+  for (; mLen >= 8; buffer[offset + i] = m & 0xff, i += d, m /= 256, mLen -= 8) {}
+
+  e = e << mLen | m;
+  eLen += mLen;
+
+  for (; eLen > 0; buffer[offset + i] = e & 0xff, i += d, e /= 256, eLen -= 8) {}
+
+  buffer[offset + i - d] |= s * 128;
+};
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+var toString = {}.toString;
+
+module.exports = Array.isArray || function (arr) {
+  return toString.call(arr) == '[object Array]';
+};
 
 /***/ })
 /******/ ])["default"];
