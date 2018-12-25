@@ -6,7 +6,6 @@
 [![npm](https://img.shields.io/npm/dt/svg64.svg)](https://www.npmjs.com/package/svg64)
 [![npm](https://img.shields.io/npm/v/svg64.svg)](https://www.npmjs.com/package/svg64)
 [![Analytics](https://ga-beacon.appspot.com/UA-83446952-1/github.com/scriptex/svg64/README.md)](https://github.com/scriptex/svg64/)
-[![Greenkeeper badge](https://badges.greenkeeper.io/scriptex/svg64.svg)](https://greenkeeper.io/)
 
 # SVG64
 
