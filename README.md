@@ -31,7 +31,13 @@ yarn add svg64
 
 or
 
-just download this repository and use the files located in `dist` folder.
+just download this repository and use the files located in `dist` folder
+
+or unclude it from unpkg.com
+
+```html
+<script src="https://unpkg.com/svg64"></script>
+```
 
 ## Usage
 
