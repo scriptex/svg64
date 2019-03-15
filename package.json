@@ -35,7 +35,7 @@
 		"babel-loader": "8.0.5",
 		"unminified-webpack-plugin": "2.0.0",
 		"webpack": "4.29.6",
-		"webpack-cli": "3.2.3"
+		"webpack-cli": "3.3.0"
 	},
 	"dependencies": {
 		"btoa": "^1.2.1"
