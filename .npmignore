@@ -35,6 +35,8 @@ yarn.lock
 .prettierignore
 
 # Config files
+_config.yml
+_.config.yml
 .babelrc
 renovate.json
 webpack.config.js
