@@ -34,7 +34,7 @@
 		"@babel/preset-env": "7.4.5",
 		"babel-loader": "8.0.6",
 		"unminified-webpack-plugin": "2.0.0",
-		"webpack": "4.32.0",
+		"webpack": "4.32.2",
 		"webpack-cli": "3.3.2"
 	},
 	"dependencies": {
