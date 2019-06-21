@@ -1,5 +1,7 @@
-const SVG64 = require('../src/svg64').default;
+const svg64 = require('../dist/svg64');
 const { readFileSync } = require('fs');
 
-const svg = readFileSync('./demo/loader.svg', 'utf-8');
-const result = SVG64(svg);
+const svg = readFileSync('./loader.svg', 'utf-8');
+const result = svg64(svg);
+
+console.log(result);

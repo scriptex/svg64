@@ -1,47 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-	<title>SVG64 Demo</title>
+		<title>SVG64 Demo</title>
 
-	<style type="text/css" media="screen">
-	#demo {
-		width: 18.75rem;
-		height: 18.75rem;
-		margin: 5vh auto;
-		background-repeat: no-repeat;
-		background-position: 50% 50%;
-		background-size: 10rem auto;
-	}
-	</style>
-</head>
-<body>
-	<div id="demo"></div><!-- /#demo -->
+		<style type="text/css" media="screen">
+			#demo {
+				width: 18.75rem;
+				height: 18.75rem;
+				margin: 5vh auto;
+				background-repeat: no-repeat;
+				background-position: 50% 50%;
+				background-size: 10rem auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="demo"></div>
 
-	<svg width="100" height="100" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" stroke="#000" id="svg">
-		<g fill="none" fill-rule="evenodd">
-			<g transform="translate(1 1)" stroke-width="2">
-				<circle stroke-opacity=".5" cx="18" cy="18" r="18"></circle>
+		<svg width="100" height="100" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" stroke="#000" id="svg">
+			<g fill="none" fill-rule="evenodd">
+				<g transform="translate(1 1)" stroke-width="2">
+					<circle stroke-opacity=".5" cx="18" cy="18" r="18"></circle>
 
-				<path d="M36 18c0-9.94-8.06-18-18-18" transform="rotate(0 18 18)">
-					<animateTransform attributeName="transform" type="rotate" from="0 18 18" to="360 18 18" dur="1.5s" repeatCount="indefinite"></animateTransform>
-				</path>
+					<path d="M36 18c0-9.94-8.06-18-18-18" transform="rotate(0 18 18)">
+						<animateTransform
+							attributeName="transform"
+							type="rotate"
+							from="0 18 18"
+							to="360 18 18"
+							dur="1.5s"
+							repeatCount="indefinite"
+						></animateTransform>
+					</path>
+				</g>
 			</g>
-		</g>
-	</svg>
+		</svg>
 
-	<script src="../dist/svg64.js"></script>
+		<script src="../dist/svg64.js"></script>
 
-	<script>
-		const svg = document.getElementById('svg');
-		const b64 = SVG64(svg);
-		const demo = document.getElementById('demo');
+		<script>
+			const svg = document.getElementById('svg');
+			const b64 = window.svg64(svg);
+			const demo = document.getElementById('demo');
 
-		demo.style.backgroundImage = `url(${b64})`;
+			demo.style.backgroundImage = `url(${b64})`;
 
-		console.log(b64)
-	</script>
-</body>
+			console.log(b64);
+		</script>
+	</body>
 </html>

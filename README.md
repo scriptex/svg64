@@ -51,7 +51,7 @@ const svg = document.getElementById('svg');
 const demo = document.getElementById('demo');
 
 // This is your SVG in base64 representation
-const base64fromSVG = SVG64(svg);
+const base64fromSVG = window.svg64(svg);
 
 // Add the base64 image as a background to your element
 demo.style.backgroundImage = `url(${base64fromSVG})`;
@@ -61,7 +61,7 @@ demo.style.backgroundImage = `url(${base64fromSVG})`;
 
 ```javascript
 // Require svg64
-const SVG64 = require('svg64').default;
+const svg64 = require('svg64');
 
 // Import `readFileSync` from the file system module
 const { readFileSync } = require('fs');
@@ -70,7 +70,7 @@ const { readFileSync } = require('fs');
 const svg = readFileSync('./file.svg', 'utf-8');
 
 // This is your SVG in base64 representation
-const base64fromSVG = SVG64(svg);
+const base64fromSVG = svg64(svg);
 ```
 
 ## Demo
