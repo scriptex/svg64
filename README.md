@@ -1,7 +1,7 @@
 [![GitHub release](https://img.shields.io/github/release/scriptex/svg64.svg)](https://github.com/scriptex/svg64/releases/latest)
 [![GitHub issues](https://img.shields.io/github/issues/scriptex/svg64.svg)](https://github.com/scriptex/svg64/issues)
 [![GitHub last commit](https://img.shields.io/github/last-commit/scriptex/svg64.svg)](https://github.com/scriptex/svg64/commits/master)
-[![Github file size](https://img.shields.io/github/size/scriptex/svg64/dist/svg64.min.js.svg)](https://github.com/scriptex/svg64)
+[![Github file size](https://img.shields.io/github/size/scriptex/svg64/dist/svg64.js.svg)](https://github.com/scriptex/svg64)
 [![Build Status](https://travis-ci.org/scriptex/svg64.svg?branch=master)](https://travis-ci.org/scriptex/svg64)
 [![npm](https://img.shields.io/npm/dt/svg64.svg)](https://www.npmjs.com/package/svg64)
 [![npm](https://img.shields.io/npm/v/svg64.svg)](https://www.npmjs.com/package/svg64)
