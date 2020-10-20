@@ -35,6 +35,7 @@ yarn.lock
 .prettierignore
 
 # Config files
+.github
 _config.yml
 _.config.yml
 .whitesource

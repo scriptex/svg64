@@ -1,24 +1,21 @@
-(function(root, factory) {
+(function (root, factory) {
 	if (typeof exports === 'object' && typeof module === 'object') module.exports = factory();
+	// @ts-ignore
 	else if (typeof define === 'function' && define.amd) define(['svg64'], factory);
 	else if (typeof exports === 'object') exports['svg64'] = factory();
 	else root['svg64'] = factory();
-})(this, function() {
+})(this, function () {
 	/**
-	 *  Base64 encode / decode
-	 *  http://www.webtoolkit.info/
+	 * Code modified from http://www.webtoolkit.info/
 	 **/
 	var Base64 = {
-		// private property
-		_keyStr: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=',
-
-		// public method for encoding
-		encode: function(input) {
+		characters: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=',
+		encode: function (input) {
 			var output = '';
 			var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
 			var i = 0;
 
-			input = Base64._utf8_encode(input);
+			input = Base64.utf8Encode(input);
 
 			while (i < input.length) {
 				chr1 = input.charCodeAt(i++);
@@ -38,51 +35,15 @@
 
 				output =
 					output +
-					this._keyStr.charAt(enc1) +
-					this._keyStr.charAt(enc2) +
-					this._keyStr.charAt(enc3) +
-					this._keyStr.charAt(enc4);
+					this.characters.charAt(enc1) +
+					this.characters.charAt(enc2) +
+					this.characters.charAt(enc3) +
+					this.characters.charAt(enc4);
 			}
 
 			return output;
 		},
-
-		// public method for decoding
-		decode: function(input) {
-			var output = '';
-			var chr1, chr2, chr3;
-			var enc1, enc2, enc3, enc4;
-			var i = 0;
-
-			input = input.replace(/[^A-Za-z0-9\+\/\=]/g, '');
-
-			while (i < input.length) {
-				enc1 = this._keyStr.indexOf(input.charAt(i++));
-				enc2 = this._keyStr.indexOf(input.charAt(i++));
-				enc3 = this._keyStr.indexOf(input.charAt(i++));
-				enc4 = this._keyStr.indexOf(input.charAt(i++));
-
-				chr1 = (enc1 << 2) | (enc2 >> 4);
-				chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
-				chr3 = ((enc3 & 3) << 6) | enc4;
-
-				output = output + String.fromCharCode(chr1);
-
-				if (enc3 != 64) {
-					output = output + String.fromCharCode(chr2);
-				}
-				if (enc4 != 64) {
-					output = output + String.fromCharCode(chr3);
-				}
-			}
-
-			output = Base64._utf8_decode(output);
-
-			return output;
-		},
-
-		// private method for UTF-8 encoding
-		_utf8_encode: function(string) {
+		utf8Encode: function (string) {
 			string = string.replace(/\r\n/g, '\n');
 			var utftext = '';
 
@@ -102,49 +63,19 @@
 			}
 
 			return utftext;
-		},
-
-		// private method for UTF-8 decoding
-		_utf8_decode: function(utftext) {
-			var string = '';
-			var i = 0;
-			var c = (c1 = c2 = 0);
-
-			while (i < utftext.length) {
-				c = utftext.charCodeAt(i);
-
-				if (c < 128) {
-					string += String.fromCharCode(c);
-					i++;
-				} else if (c > 191 && c < 224) {
-					c2 = utftext.charCodeAt(i + 1);
-					string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
-					i += 2;
-				} else {
-					c2 = utftext.charCodeAt(i + 1);
-					c3 = utftext.charCodeAt(i + 2);
-					string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
-					i += 3;
-				}
-			}
-
-			return string;
 		}
 	};
 
-	/**
-	 * base64 prefix
-	 */
 	var PREFIX = 'data:image/svg+xml;base64,';
 
 	/**
 	 * Detect the type of the provided SVG
 	 *
-	 * @param  {String|SVGElement} input
+	 * @param  {string | SVGElement} input
 	 *
-	 * @return {String}
+	 * @return {string}
 	 */
-	var detectInputType = function(input) {
+	var detectInputType = function (input) {
 		if (typeof input === 'string') {
 			return 'string';
 		}
@@ -159,9 +90,9 @@
 	 *
 	 * @param  {SVGElement} element
 	 *
-	 * @return {String}
+	 * @return {string}
 	 */
-	var convertElement = function(element) {
+	var convertElement = function (element) {
 		var XMLS = new XMLSerializer();
 		var svg = XMLS.serializeToString(element);
 
@@ -171,22 +102,22 @@
 	/**
 	 * Get the base64 representation of an SVG string or element
 	 *
-	 * @param  {String} svg - Serialized SVG element or SVG string
+	 * @param  {string} svg - Serialized SVG element or SVG string
 	 *
-	 * @return {String}
+	 * @return {string}
 	 */
-	var getBase64 = function(svg) {
+	var getBase64 = function (svg) {
 		return PREFIX + Base64.encode(svg);
 	};
 
 	/**
 	 * Actually convert the provided SVG
 	 *
-	 * @param  {String|SVGElement} svg
+	 * @param  {string | SVGElement} svg
 	 *
-	 * @return {String}
+	 * @return {string}
 	 */
-	return function(svg) {
+	return function (svg) {
 		var type = detectInputType(svg);
 
 		switch (type) {
