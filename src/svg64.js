@@ -73,7 +73,7 @@
 	 *
 	 * @param  {string | SVGElement} input
 	 *
-	 * @return {string}
+	 * @return {string | void}
 	 */
 	var detectInputType = function (input) {
 		if (typeof input === 'string') {
@@ -103,6 +103,7 @@
 	 * Get the base64 representation of an SVG string or element
 	 *
 	 * @param  {string} svg - Serialized SVG element or SVG string
+	 * @param  {SVGElement} svg - Serialized SVG element or SVG string
 	 *
 	 * @return {string}
 	 */

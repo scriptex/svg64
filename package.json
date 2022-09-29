@@ -19,8 +19,8 @@
 	},
 	"author": "Atanas Atanasov <scriptex.bg@gmail.com> (https://atanas.info)",
 	"license": "MIT",
+	"dependencies": {},
 	"devDependencies": {
 		"uglify-js": "3.17.0"
-	},
-	"dependencies": {}
+	}
 }
