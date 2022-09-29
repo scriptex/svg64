@@ -1,26 +1,34 @@
 {
 	"name": "svg64",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"description": "Convert SVG to base64 anywhere",
 	"keywords": [
-		"SVG",
-		"Convert",
-		"base64"
+		"SVG convert",
+		"SVG to base64",
+		"base64 convert"
 	],
-	"main": "dist/svg64.js",
-	"scripts": {
-		"build": "uglifyjs src/svg64.js -o dist/svg64.js",
-		"demo": "node ./demo/node.js"
-	},
-	"repository": "git@github.com:scriptex/svg64.git",
+	"homepage": "https://svg64.atanas.info",
 	"bugs": {
 		"url": "https://github.com/scriptex/svg64/issues",
-		"email": "scriptex.bg@gmail.com"
+		"email": "hi@atanas.info"
 	},
-	"author": "Atanas Atanasov <scriptex.bg@gmail.com> (https://atanas.info)",
 	"license": "MIT",
+	"author": "Atanas Atanasov <hi@atanas.info> (https://atanas.info)",
+	"funding": "https://github.com/sponsors/scriptex",
+	"main": "dist/svg64.js",
+	"repository": {
+		"type": "git",
+		"url": "github:scriptex/svg64"
+	},
+	"scripts": {
+		"js": "mkdir dist && uglifyjs src/svg64.js -o dist/svg64.js",
+		"clean": "rm -rf dist && rm -rf demo/dist",
+		"copy": "cp -r dist demo",
+		"demo": "node ./demo/scripts/node.js",
+		"build": "yarn clean && yarn js && yarn copy"
+	},
 	"dependencies": {},
 	"devDependencies": {
-		"uglify-js": "3.17.0"
+		"uglify-js": "3.17.2"
 	}
 }

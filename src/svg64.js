@@ -114,7 +114,8 @@
 	/**
 	 * Actually convert the provided SVG
 	 *
-	 * @param  {string | SVGElement} svg
+	 * @param  {string} svg
+	 * @param  {SVGElement} svg
 	 *
 	 * @return {string}
 	 */

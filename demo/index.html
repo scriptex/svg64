@@ -6,38 +6,211 @@
 
 		<title>SVG64 Demo</title>
 
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css"
+		/>
+
+		<script
+			src="https://unpkg.com/scriptex-socials"
+			async
+			integrity="sha384-FDS8WECJvE4bGb+arLPh3DSv0mrVHD+hJRf+UaM6rVMT+wBleSgUlog90rrtgHH1"
+			crossorigin="anonymous"
+		></script>
+
 		<style type="text/css" media="screen">
-			#demo {
-				width: 18.75rem;
-				height: 18.75rem;
-				margin: 5vh auto;
+			* {
+				box-sizing: border-box;
+			}
+
+			body {
+				font-family: sans-serif;
+				font-size: 1rem;
+				line-height: 1.25;
+				margin: 0;
+			}
+
+			main {
+				max-width: 1200px;
+				padding: 1rem 1rem 0;
+				margin: auto;
+			}
+
+			p,
+			h1,
+			h2,
+			h4 {
+				margin: 0 0 1rem;
+			}
+
+			h2 {
+				text-align: center;
+				margin: 1rem 0;
+			}
+
+			pre {
+				display: block;
+				overflow: auto;
+				padding: 1rem;
+				background: #dfdfdf;
+			}
+
+			social-links {
+				display: block;
+				padding-bottom: 1rem;
+			}
+
+			.row {
+				display: flex;
+				flex-flow: row wrap;
+				align-items: flex-start;
+				justify-content: flex-start;
+				margin: 0 -1rem;
+			}
+
+			.col {
+				max-width: 50%;
+				flex: 0 0 50%;
+				padding: 0 1rem;
+			}
+
+			.box {
+				width: 50%;
+				height: 0;
+				position: relative;
+				padding-bottom: 50%;
+				border: 1px solid;
+				margin: 0 auto 1rem;
 				background-repeat: no-repeat;
 				background-position: 50% 50%;
-				background-size: 10rem auto;
+			}
+
+			.box svg {
+				display: block;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+
+			@media (max-width: 1023px) {
+				.row {
+					display: block;
+					margin: 0;
+				}
+
+				.col {
+					max-width: none;
+					padding: 0;
+				}
+
+				.box {
+					width: 100%;
+					padding-bottom: 100%;
+				}
 			}
 		</style>
 	</head>
 	<body>
-		<div id="demo"></div>
+		<a
+			href="https://github.com/scriptex/svg64"
+			title="See code on Github"
+			class="github-fork-ribbon"
+			data-ribbon="See code on Github"
+		>
+			See code on Github
+		</a>
 
-		<svg width="100" height="100" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" stroke="#000" id="svg">
-			<g fill="none" fill-rule="evenodd">
-				<g transform="translate(1 1)" stroke-width="2">
-					<circle stroke-opacity=".5" cx="18" cy="18" r="18"></circle>
+		<main>
+			<div class="row">
+				<div class="col">
+					<h1>SVG64</h1>
 
-					<path d="M36 18c0-9.94-8.06-18-18-18" transform="rotate(0 18 18)">
-						<animateTransform
-							attributeName="transform"
-							type="rotate"
-							from="0 18 18"
-							to="360 18 18"
-							dur="1.5s"
-							repeatCount="indefinite"
-						></animateTransform>
-					</path>
-				</g>
-			</g>
-		</svg>
+					<p>Convert SVG to base64 anywhere</p>
+
+					<h4>Installation</h4>
+
+					<!-- prettier-ignore -->
+					<code>
+<pre>
+npm install svg64
+
+# or
+
+yarn add svg64
+</pre>
+					</code>
+
+					<h4>Usage in browser</h4>
+
+					<!-- prettier-ignore -->
+					<code>
+<pre>
+const svg = document.getElementById('svg');
+const b64 = window.svg64(svg);
+const demo = document.getElementById('demo');
+
+demo.style.backgroundImage = `url(${b64})`;
+</pre>
+					</code>
+
+					<h4>Usage in NodeJS</h4>
+
+					<!-- prettier-ignore -->
+					<code>
+<pre>
+const { resolve } = require('path');
+const { readFileSync } = require('fs');
+
+const svg64 = require('svg64');
+
+const svg = readFileSync(resolve(__dirname, 'assets', 'example.svg'), 'utf-8');
+const result = svg64(svg);
+
+console.log(result);
+</pre>
+					</code>
+				</div>
+
+				<div class="col">
+					<h4 style="text-align: center">This is the SVG</h4>
+
+					<div class="box">
+						<svg
+							width="100"
+							height="100"
+							viewBox="0 0 38 38"
+							xmlns="http://www.w3.org/2000/svg"
+							stroke="#000"
+							id="svg"
+						>
+							<g fill="none" fill-rule="evenodd">
+								<g transform="translate(1 1)" stroke-width="2">
+									<circle stroke-opacity=".5" cx="18" cy="18" r="18"></circle>
+
+									<path d="M36 18c0-9.94-8.06-18-18-18" transform="rotate(0 18 18)">
+										<animateTransform
+											attributeName="transform"
+											type="rotate"
+											from="0 18 18"
+											to="360 18 18"
+											dur="1.5s"
+											repeatCount="indefinite"
+										></animateTransform>
+									</path>
+								</g>
+							</g>
+						</svg>
+					</div>
+
+					<h4 style="text-align: center">This is the base64 encoded SVG used as a background image</h4>
+
+					<div id="demo" class="box"></div>
+				</div>
+			</div>
+		</main>
+
+		<social-links></social-links>
 
 		<script src="../dist/svg64.js"></script>
 

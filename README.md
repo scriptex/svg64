@@ -1,15 +1,29 @@
-[![GitHub release](https://img.shields.io/github/release/scriptex/svg64.svg)](https://github.com/scriptex/svg64/releases/latest)
-[![GitHub issues](https://img.shields.io/github/issues/scriptex/svg64.svg)](https://github.com/scriptex/svg64/issues)
-[![GitHub last commit](https://img.shields.io/github/last-commit/scriptex/svg64.svg)](https://github.com/scriptex/svg64/commits/master)
-[![Github file size](https://img.shields.io/github/size/scriptex/svg64/dist/svg64.js.svg)](https://github.com/scriptex/svg64)
-[![Build Status](https://travis-ci.com/scriptex/svg64.svg?branch=master)](https://travis-ci.com/scriptex/svg64)
-[![npm](https://img.shields.io/npm/dt/svg64.svg)](https://www.npmjs.com/package/svg64)
-[![npm](https://img.shields.io/npm/v/svg64.svg)](https://www.npmjs.com/package/svg64)
-[![Analytics](https://ga-beacon-361907.ew.r.appspot.com/UA-83446952-1/github.com/scriptex/svg64/README.md)](https://github.com/scriptex/svg64/)
+[![Travis CI](https://travis-ci.com/scriptex/svg64.svg?branch=master)](https://travis-ci.com/scriptex/svg64)
+[![Github Build](https://github.com/scriptex/svg64/workflows/Build/badge.svg)](https://github.com/scriptex/svg64/actions?query=workflow%3ABuild)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/34d3d75710534dc6a38c3584a1dcd068)](https://www.codacy.com/gh/scriptex/svg64/dashboard?utm_source=github.com&utm_medium=referral&utm_content=scriptex/svg64&utm_campaign=Badge_Grade)
+[![Codebeat Badge](https://codebeat.co/badges/d765a4c8-2c0e-44f2-89c3-fa364fdc14e6)](https://codebeat.co/projects/github-com-scriptex-svg64-master)
+[![CodeFactor Badge](https://www.codefactor.io/repository/github/scriptex/svg64/badge)](https://www.codefactor.io/repository/github/scriptex/svg64)
+[![DeepScan grade](https://deepscan.io/api/teams/3574/projects/5257/branches/40799/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=3574&pid=5257&bid=40799)
+[![Analytics](https://ga-beacon-361907.ew.r.appspot.com/UA-83446952-1/github.com/scriptex/svg64/README.md?pixel)](https://github.com/scriptex/svg64/)
 
 # SVG64
 
-Convert SVG to base64 anywhere
+> Convert SVG to base64 anywhere
+
+## Visitor stats
+
+![GitHub stars](https://img.shields.io/github/stars/scriptex/svg64?style=social)
+![GitHub forks](https://img.shields.io/github/forks/scriptex/svg64?style=social)
+![GitHub watchers](https://img.shields.io/github/watchers/scriptex/svg64?style=social)
+![GitHub followers](https://img.shields.io/github/followers/scriptex?style=social)
+
+## Code stats
+
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/scriptex/svg64)
+![GitHub repo size](https://img.shields.io/github/repo-size/scriptex/svg64?style=plastic)
+![GitHub language count](https://img.shields.io/github/languages/count/scriptex/svg64?style=plastic)
+![GitHub top language](https://img.shields.io/github/languages/top/scriptex/svg64?style=plastic)
+![GitHub last commit](https://img.shields.io/github/last-commit/scriptex/svg64?style=plastic)
 
 ## About
 
@@ -75,13 +89,13 @@ const base64fromSVG = svg64(svg);
 
 ## Demo
 
-There is a simple demo illustrating how the SVG64 library works in browser.
+There is a simple demo illustrating how to use the SVG64 module in a browser.
 
-Check it out [here](https://github.com/scriptex/svg64/blob/master/demo/index.html)
+Check it out [here](https://sv64.atanas.info)
 
-There is a simple demo illustrating how the SVG64 library works in Node.
+There is a simple demo illustrating how to use the SVG64 module in NodeJS.
 
-Check it out [here](https://github.com/scriptex/svg64/blob/master/demo/node.js)
+Check it out [here](https://github.com/scriptex/svg64/blob/master/demo/scripts/node.js)
 
 ## LICENSE
 
