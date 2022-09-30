@@ -6,3 +6,4 @@ install:
     - yarn
 script:
     - yarn build
+    - yarn demo
