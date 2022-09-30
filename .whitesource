@@ -1,8 +1,8 @@
 {
-  "generalSettings": {
-    "shouldScanRepo": true
-  },
-  "checkRunSettings": {
-    "vulnerableCheckRunConclusionLevel": "success"
-  }
+	"generalSettings": {
+		"shouldScanRepo": true
+	},
+	"checkRunSettings": {
+		"vulnerableCheckRunConclusionLevel": "success"
+	}
 }
