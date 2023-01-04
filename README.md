@@ -55,9 +55,11 @@ or unclude it from unpkg.com
 
 ## Usage
 
-### In a browser:
+### In a browser
 
 ```javascript
+import svg64 from 'svg64'; // or use window.svg64.default
+
 // This is your SVG DOM element
 const svg = document.getElementById('svg');
 
@@ -65,13 +67,13 @@ const svg = document.getElementById('svg');
 const demo = document.getElementById('demo');
 
 // This is your SVG in base64 representation
-const base64fromSVG = window.svg64(svg);
+const base64fromSVG = svg64(svg);
 
 // Add the base64 image as a background to your element
 demo.style.backgroundImage = `url(${base64fromSVG})`;
 ```
 
-### In Node:
+### In Node
 
 ```javascript
 // Require svg64

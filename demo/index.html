@@ -146,8 +146,10 @@ yarn add svg64
 					<!-- prettier-ignore -->
 					<code>
 <pre>
+import svg64 from 'svg64'; // or use window.svg64.default
+
 const svg = document.getElementById('svg');
-const b64 = window.svg64(svg);
+const b64 = svg64(svg);
 const demo = document.getElementById('demo');
 
 demo.style.backgroundImage = `url(${b64})`;
@@ -212,11 +214,11 @@ console.log(result);
 
 		<social-links></social-links>
 
-		<script src="../dist/svg64.js"></script>
+		<script src="./dist/svg64.umd.js"></script>
 
 		<script>
 			const svg = document.getElementById('svg');
-			const b64 = window.svg64(svg);
+			const b64 = window.svg64.default(svg);
 			const demo = document.getElementById('demo');
 
 			demo.style.backgroundImage = `url(${b64})`;
