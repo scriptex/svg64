@@ -1,6 +1,6 @@
 {
 	"name": "svg64",
-	"version": "1.2.0",
+	"version": "2.0.0",
 	"description": "Convert SVG to base64 anywhere",
 	"keywords": [
 		"SVG convert",
@@ -15,20 +15,28 @@
 	"license": "MIT",
 	"author": "Atanas Atanasov <hi@atanas.info> (https://atanas.info)",
 	"funding": "https://github.com/sponsors/scriptex",
-	"main": "dist/svg64.js",
+	"type": "module",
+	"source": "src/svg64.ts",
+	"exports": {
+		"require": "./dist/svg64.cjs",
+		"default": "./dist/svg64.modern.js"
+	},
+	"main": "./dist/svg64.cjs",
+	"types": "./dist/svg64.d.ts",
+	"module": "./dist/svg64.module.js",
+	"unpkg": "./dist/svg64.umd.js",
 	"repository": {
 		"type": "git",
 		"url": "github:scriptex/svg64"
 	},
 	"scripts": {
-		"js": "mkdir dist && uglifyjs src/svg64.js -o dist/svg64.js",
-		"clean": "rm -rf dist && rm -rf demo/dist",
 		"copy": "cp -r dist demo",
-		"demo": "node ./demo/scripts/node.js",
-		"build": "yarn clean && yarn js && yarn copy"
+		"demo": "node ./demo/scripts/node.mjs",
+		"build": "microbundle && yarn copy",
+		"start": "microbundle watch"
 	},
 	"dependencies": {},
 	"devDependencies": {
-		"uglify-js": "3.17.4"
+		"microbundle": "0.15.1"
 	}
 }

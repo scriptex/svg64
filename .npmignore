@@ -21,6 +21,7 @@ Thumbs.db
 .github
 _config.yml
 _.config.yml
+.codebeatsettings
 .editorconfig
 .gitattributes
 .gitignore
