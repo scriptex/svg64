@@ -97,7 +97,7 @@ Check it out [here](https://svg64.atanas.info)
 
 There is a simple demo illustrating how to use the SVG64 module in NodeJS.
 
-Check it out [here](https://github.com/scriptex/svg64/blob/master/demo/scripts/node.js)
+Check it out [here](https://github.com/scriptex/svg64/blob/master/demo/scripts/node.mjs)
 
 ## LICENSE
 
