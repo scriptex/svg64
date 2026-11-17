@@ -1,9 +1,12 @@
 import assert from 'node:assert/strict';
+import { createRequire } from 'node:module';
 import test from 'node:test';
 
+import packageSvg64 from 'svg64';
 import svg64, { convertElement, detectInputType, encode, getBase64, utf8Encode } from '../dist/svg64.modern.js';
 
 const PREFIX = 'data:image/svg+xml;base64,';
+const require = createRequire(import.meta.url);
 
 const withGlobals = (overrides, callback) => {
 	const descriptors = new Map(
@@ -116,4 +119,19 @@ test('unsupported inputs are not detected and are returned unchanged by svg64', 
 		assert.equal(detectInputType(input), undefined);
 		assert.equal(svg64(input), input);
 	});
+});
+
+test('package default export is callable from ESM and TypeScript-compatible CommonJS', () => {
+	const input = '<svg><text>hello</text></svg>';
+	const expected = PREFIX + Buffer.from(input, 'utf8').toString('base64');
+	const commonJSExport = require('svg64');
+	const defaultImport = commonJSExport.__esModule ? commonJSExport : { default: commonJSExport };
+
+	assert.equal(packageSvg64(input), expected);
+	assert.equal(typeof commonJSExport, 'function');
+	assert.equal(commonJSExport(input), expected);
+	assert.equal(commonJSExport.default, commonJSExport);
+	assert.equal(typeof defaultImport.default, 'function');
+	assert.equal(defaultImport.default(input), expected);
+	assert.equal(commonJSExport.encode(input), encode(input));
 });

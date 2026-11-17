@@ -39,3 +39,4 @@ yarn.lock
 
 !dist
 demo
+test
