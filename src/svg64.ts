@@ -5,19 +5,25 @@ const PREFIX = 'data:image/svg+xml;base64,';
 export const utf8Encode = (input: string): string => {
 	input = input.replace(/\r\n/g, '\n');
 
-	let i = 0;
 	let output = '';
 
-	for (; i < input.length; i++) {
-		const c = input.charCodeAt(i);
+	for (const character of input) {
+		const c = character.codePointAt(0)!;
 
 		if (c < 128) {
 			output += String.fromCharCode(c);
 		} else if (c > 127 && c < 2048) {
 			output += String.fromCharCode((c >> 6) | 192);
 			output += String.fromCharCode((c & 63) | 128);
-		} else {
+		} else if (c >= 0xd800 && c <= 0xdfff) {
+			output += String.fromCharCode(0xef, 0xbf, 0xbd);
+		} else if (c < 0x10000) {
 			output += String.fromCharCode((c >> 12) | 224);
+			output += String.fromCharCode(((c >> 6) & 63) | 128);
+			output += String.fromCharCode((c & 63) | 128);
+		} else {
+			output += String.fromCharCode((c >> 18) | 240);
+			output += String.fromCharCode(((c >> 12) & 63) | 128);
 			output += String.fromCharCode(((c >> 6) & 63) | 128);
 			output += String.fromCharCode((c & 63) | 128);
 		}

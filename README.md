@@ -73,19 +73,25 @@ const base64fromSVG = svg64(svg);
 demo.style.backgroundImage = `url(${base64fromSVG})`;
 ```
 
-### In Node
+### In Node (ES modules and TypeScript)
 
 ```javascript
-// Require svg64
+import { readFileSync } from 'node:fs';
+import svg64 from 'svg64';
+
+const svg = readFileSync('./file.svg', 'utf-8');
+const base64fromSVG = svg64(svg);
+```
+
+Use the default import shown above; `import * as svg64` creates a module namespace object, which is not callable.
+
+### In Node (CommonJS)
+
+```javascript
+const { readFileSync } = require('node:fs');
 const svg64 = require('svg64');
 
-// Import `readFileSync` from the file system module
-const { readFileSync } = require('fs');
-
-// Read your SVG file's contents
 const svg = readFileSync('./file.svg', 'utf-8');
-
-// This is your SVG in base64 representation
 const base64fromSVG = svg64(svg);
 ```
 
