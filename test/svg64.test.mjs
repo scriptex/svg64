@@ -1,12 +1,13 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+
 import svg64, { convertElement, detectInputType, encode, getBase64, utf8Encode } from '../dist/svg64.modern.js';
 
 const PREFIX = 'data:image/svg+xml;base64,';
 
 const withGlobals = (overrides, callback) => {
 	const descriptors = new Map(
-		Object.keys(overrides).map((key) => [key, Object.getOwnPropertyDescriptor(globalThis, key)])
+		Object.keys(overrides).map(key => [key, Object.getOwnPropertyDescriptor(globalThis, key)])
 	);
 
 	try {
@@ -59,9 +60,11 @@ test('encode matches standard Base64 vectors for every padding case', () => {
 
 test('encode Base64-encodes multibyte and normalized newline text', () => {
 	const input = '<svg><text>😀</text></svg>';
+
 	assert.equal(encode(input), Buffer.from(input, 'utf8').toString('base64'));
 
 	const withNewlines = 'first\r\nsecond';
+
 	assert.equal(encode(withNewlines), Buffer.from('first\nsecond', 'utf8').toString('base64'));
 });
 
@@ -75,6 +78,7 @@ test('svg64 and getBase64 add the data URL prefix for empty and non-empty string
 	}
 
 	const input = '<svg><text>one\r\ntwo</text></svg>';
+
 	assert.equal(svg64(input), PREFIX + Buffer.from(input.replace(/\r\n/g, '\n'), 'utf8').toString('base64'));
 });
 
@@ -83,7 +87,9 @@ test('SVG elements are detected, serialized, and encoded', () => {
 	const expected = PREFIX + Buffer.from(serialized, 'utf8').toString('base64');
 
 	class MockSVGElement {}
+
 	const element = new MockSVGElement();
+
 	let serializationCount = 0;
 
 	class MockXMLSerializer {
