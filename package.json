@@ -33,6 +33,7 @@
 		"copy": "cp -r dist demo",
 		"demo": "node ./demo/scripts/node.mjs",
 		"build": "microbundle && yarn copy",
+		"test": "npm run build && node --test",
 		"start": "microbundle watch"
 	},
 	"dependencies": {},
